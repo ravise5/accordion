@@ -1,7 +1,7 @@
 import { loadCSS } from '../../scripts/aem.js';
 
 let customComponents = [];
-const OOTBComponentDecorators = ['file-input', 'wizard', 'modal', 'tnc', 'toggleable-link', 'rating'];
+const OOTBComponentDecorators = ['file-input', 'wizard', 'modal', 'tnc', 'toggleable-link', 'rating', 'accordion'];
 
 export function setCustomComponents(components) {
   customComponents = components;
@@ -30,8 +30,8 @@ async function loadComponent(componentName, element, fd, container) {
         (async () => {
           try {
             const mod = await import(
-              `${window.hlx.codeBasePath}/blocks/form/components/${componentName}/${componentName}.js`
-            );
+                `${window.hlx.codeBasePath}/blocks/form/components/${componentName}/${componentName}.js`
+                );
             if (mod.default) {
               await mod.default(element, fd, container);
             }
