@@ -13,6 +13,11 @@ main .form fieldset legend.accordion-legend {
     position: relative;
 }
 
+main .form fieldset legend.accordion-legend[data-visible='false'] {
+    display:block !important;
+    color:var(--color-accordion-legend-background);
+}
+
 main .form fieldset legend::after {
     content: '\221F';
     color: var(--color-accordion-collapse-icon);
