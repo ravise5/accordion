@@ -1,9 +1,22 @@
+function handleTabSwitch(tab, accordionTabs) {
+  accordionTabs.forEach((otherTab) => {
+    if (otherTab !== tab) {
+      otherTab.classList.add('accordion-collapse');
+    }
+  });
+  tab.classList.toggle('accordion-collapse');
+}
+
 export default function decorate(panel) {
   panel.classList.add('accordion-wrapper');
-  const legend = panel?.querySelector('legend');
-  legend?.classList.add('accordion-legend');
-  legend?.addEventListener('click', () => {
-    panel.classList.toggle('accordion-collapse');
+  const accordionTabs = panel?.querySelectorAll(':scope > fieldset');
+  accordionTabs?.forEach((tab, index) => {
+    const legend = tab.querySelector(':scope > legend');
+    legend?.classList.add('accordion-legend');
+    if (index !== 0) tab.classList.toggle('accordion-collapse'); // collapse all but the first tab on load
+    legend?.addEventListener('click', () => {
+      handleTabSwitch(tab, accordionTabs);
+    });
   });
   return panel;
 }
