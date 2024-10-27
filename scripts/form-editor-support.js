@@ -196,7 +196,7 @@ function handleEditorSelect(event) {
       });
     }
   } else if (event.target.closest('.accordion') && event.detail.selected) {
-    const accordionElement = event.target.closest('.wizard');
+    const accordionElement = event.target.closest('.accordion');
     const { resource } = event.detail;
     const el = accordionElement.querySelector(`[data-aue-resource='${resource}']`);
     if (el.hasAttribute('data-index')) {
