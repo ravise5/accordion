@@ -175,40 +175,31 @@ export function annotateFormForEditing(formEl, formDefinition) {
   annotateItems(formEl.childNodes, formDefinition, formFieldMap);
 }
 
+function handleNavigation(container, resource, navigationHandler) {
+  const el = container.querySelector(`[data-aue-resource='${resource}']`);
+  if (el.hasAttribute('data-index')) {
+    navigationHandler(container, el);
+  } else {
+    Array.from(container.children).forEach((child) => {
+      const isElPresentUnderChild = child.querySelector(`[data-aue-resource='${resource}']`);
+      if (isElPresentUnderChild) {
+        navigationHandler(container, child);
+      }
+    });
+  }
+}
 
 /**
  * Event listener for aue:ui-select, selection of a component
  */
 function handleEditorSelect(event) {
-  if (event.target.closest('.wizard') && event.detail.selected && !event.target.classList.contains('wizard')) {
-    const wizardEl = event.target.closest('.wizard');
-    const { resource } = event.detail;
-    const el = wizardEl.querySelector(`[data-aue-resource='${resource}']`);
-    if (el.hasAttribute('data-index')) {
-      // if selected element is the direct child of wizard
-      handleWizardNavigation(wizardEl, el);
-    } else {
-      Array.from(wizardEl.children).forEach((child) => {
-        const isElPresentUnderChild = child.querySelector(`[data-aue-resource='${resource}']`);
-        if (isElPresentUnderChild) {
-          handleWizardNavigation(wizardEl, child);
-        }
-      });
-    }
-  } else if (event.target.closest('.accordion') && event.detail.selected) {
-    const accordionElement = event.target.closest('.accordion');
-    const { resource } = event.detail;
-    const el = accordionElement.querySelector(`[data-aue-resource='${resource}']`);
-    if (el.hasAttribute('data-index')) {
-      handleAccordionNavigation(accordionElement, el);
-    } else {
-      Array.from(accordionElement.children).forEach((child) => {
-        const isElPresentUnderChild = child.querySelector(`[data-aue-resource='${resource}']`);
-        if (isElPresentUnderChild) {
-          handleAccordionNavigation(accordionElement, child);
-        }
-      });
-    }
+  const { target, detail } = event;
+  const { selected, resource } = detail;
+
+  if (selected && target.closest('.wizard') && !target.classList.contains('wizard')) {
+    handleNavigation(target.closest('.wizard'), resource, handleWizardNavigation);
+  } else if (selected && target.closest('.accordion')) {
+    handleNavigation(target.closest('.accordion'), resource, handleAccordionNavigation);
   }
 }
 
