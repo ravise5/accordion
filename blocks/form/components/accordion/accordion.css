@@ -5,7 +5,7 @@
     --color-accordion-border: #ecedf3;
 }
 
-main .form fieldset.accordion-wrapper legend.accordion-legend {
+main .form fieldset.accordion legend.accordion-legend {
     padding: 24px 32px;
     background-color: var(--color-accordion-legend-background);
     position: relative;
@@ -18,7 +18,7 @@ main .form .accordion > fieldset > legend.accordion-legend[data-visible='false']
     user-select: none;
 }
 
-main .form .accordion-wrapper > fieldset > legend::after {
+main .form .accordion > fieldset > legend::after {
     content: '\221F';
     color: var(--color-accordion-collapse-icon);
     font-size: 19px;
@@ -31,7 +31,7 @@ main .form .accordion-wrapper > fieldset > legend::after {
     cursor: pointer;
 }
 
-main .form .accordion-wrapper > fieldset.accordion-collapse > legend::after {
+main .form .accordion > fieldset.accordion-collapse > legend::after {
     transform: rotate(-225deg);
     margin-top: 0;
 }
@@ -41,11 +41,11 @@ main .form fieldset.accordion-collapse > :not(legend) {
 }
 
 
-main .form fieldset.accordion-wrapper fieldset > :not(legend) {
+main .form fieldset.accordion fieldset > :not(legend) {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
 
-main .form fieldset.accordion-wrapper fieldset {
+main .form fieldset.accordion fieldset {
     border: 1px solid var(--color-accordion-border);
 }

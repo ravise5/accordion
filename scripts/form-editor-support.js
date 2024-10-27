@@ -19,6 +19,7 @@
  ************************************************************************ */
 import decorate, { generateFormRendition } from '../blocks/form/form.js';
 import { loadCSS } from './aem.js';
+import { handleAccordionNavigation } from '../blocks/form/components/accordion/accordion.js';
 
 window.currentMode = 'preview';
 let activeWizardStep;
@@ -174,6 +175,7 @@ export function annotateFormForEditing(formEl, formDefinition) {
   annotateItems(formEl.childNodes, formDefinition, formFieldMap);
 }
 
+
 /**
  * Event listener for aue:ui-select, selection of a component
  */
@@ -190,6 +192,20 @@ function handleEditorSelect(event) {
         const isElPresentUnderChild = child.querySelector(`[data-aue-resource='${resource}']`);
         if (isElPresentUnderChild) {
           handleWizardNavigation(wizardEl, child);
+        }
+      });
+    }
+  } else if (event.target.closest('.accordion') && event.detail.selected) {
+    const accordionElement = event.target.closest('.wizard');
+    const { resource } = event.detail;
+    const el = accordionElement.querySelector(`[data-aue-resource='${resource}']`);
+    if (el.hasAttribute('data-index')) {
+      handleAccordionNavigation(accordionElement, el);
+    } else {
+      Array.from(accordionElement.children).forEach((child) => {
+        const isElPresentUnderChild = child.querySelector(`[data-aue-resource='${resource}']`);
+        if (isElPresentUnderChild) {
+          handleAccordionNavigation(accordionElement, child);
         }
       });
     }
