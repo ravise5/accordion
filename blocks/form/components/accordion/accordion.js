@@ -17,7 +17,7 @@ export default function decorate(panel) {
     legend?.classList.add('accordion-legend');
     if (index !== 0) tab.classList.toggle('accordion-collapse'); // collapse all but the first tab on load
     legend?.addEventListener('click', () => {
-      handleAccordionNavigation(panel, accordionTabs);
+      handleAccordionNavigation(panel, tab);
     });
   });
   return panel;
