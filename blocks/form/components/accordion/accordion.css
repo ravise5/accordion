@@ -46,7 +46,7 @@ main .form fieldset.accordion fieldset > :not(legend) {
     padding-right: 1.5rem;
 }
 
-main .form fieldset.accordion fieldset {
+main .form fieldset.accordion > fieldset {
     border: 1px solid var(--color-accordion-border);
     margin: 0;
 }
